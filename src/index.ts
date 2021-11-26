@@ -11,7 +11,7 @@ import { HttpRequest } from './types/http-request.class';
 import { HttpResponse } from './types/http-response.class';
 import { IHttp } from './types/http.interface';
 
-export class RxJSHttpClient implements IHttp {
+export class HttpClient implements IHttp {
     private readonly _reqInterceptors: HttpInterceptors<HttpRequest>;
     private readonly _resInterceptors: HttpInterceptors<HttpResponse>;
 
