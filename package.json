@@ -1,6 +1,6 @@
 {
   "name": "rxjs-http-cl",
-  "version": "7.0.1",
+  "version": "7.0.2",
   "description": "A simple to use http client built on ES6 fetch and RxJS",
   "main": "./dist/index",
   "types": "./dist/index",
