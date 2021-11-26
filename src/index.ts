@@ -1,8 +1,8 @@
 import fetch from 'node-fetch';
 import { from, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { HttpErrorHandler } from "./helpers/http-error-handler.helper";
+import { map } from 'rxjs/operators';
 import { RequestMapper } from './mappers/request.mapper';
+import { checkHttpStatus } from './operators/check-http-status.operator';
 import { HttpRequestConfigurations } from './types/http-configurations.enum';
 import { IHttpInterceptor } from './types/http-interceptor.interface';
 import { HttpInterceptors } from './types/http-interceptors.class';
@@ -15,8 +15,7 @@ export class RxJSHttpClient implements IHttp {
     private readonly _reqInterceptors: HttpInterceptors<HttpRequest>;
     private readonly _resInterceptors: HttpInterceptors<HttpResponse>;
 
-    constructor(reqInterceptors: IHttpInterceptor<HttpRequest>[] = [],
-                resInterceptors: IHttpInterceptor<HttpResponse>[] = []) {
+    constructor(reqInterceptors: IHttpInterceptor<HttpRequest>[] = [], resInterceptors: IHttpInterceptor<HttpResponse>[] = []) {
         this._reqInterceptors = new HttpInterceptors<HttpRequest>(reqInterceptors);
         this._resInterceptors = new HttpInterceptors<HttpResponse>(resInterceptors);
     }
@@ -27,7 +26,7 @@ export class RxJSHttpClient implements IHttp {
 
         return from(fetch(url, configObject as any)).pipe(
             map(res => this._resInterceptors.execute(new HttpResponse(res))),
-            tap(HttpErrorHandler.throwIfNotOkResponse)
+            checkHttpStatus()
         );
     }
 
@@ -37,7 +36,7 @@ export class RxJSHttpClient implements IHttp {
 
         return from(fetch(url, configObject as any)).pipe(
             map((response) => this._resInterceptors.execute(new HttpResponse(response))),
-            tap(HttpErrorHandler.throwIfNotOkResponse)
+            checkHttpStatus()
         );
     }
 
@@ -47,7 +46,7 @@ export class RxJSHttpClient implements IHttp {
 
         return from(fetch(url, configObject as any)).pipe(
             map((response) => this._resInterceptors.execute(new HttpResponse(response))),
-            tap(HttpErrorHandler.throwIfNotOkResponse)
+            checkHttpStatus()
         );
     }
 
@@ -57,7 +56,7 @@ export class RxJSHttpClient implements IHttp {
 
         return from(fetch(url, configObject as any)).pipe(
             map((response) => this._resInterceptors.execute(new HttpResponse(response))),
-            tap(HttpErrorHandler.throwIfNotOkResponse)
+            checkHttpStatus()
         );
     }
 
@@ -67,7 +66,7 @@ export class RxJSHttpClient implements IHttp {
 
         return from(fetch(url, configObject as any)).pipe(
             map((response) => this._resInterceptors.execute(new HttpResponse(response))),
-            tap(HttpErrorHandler.throwIfNotOkResponse)
+            checkHttpStatus()
         );
     }
 }
