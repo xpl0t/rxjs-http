@@ -25,7 +25,7 @@ export class RxJSHttpClient implements IHttp {
         const configObject: RequestInit = RequestMapper.for(request, HttpRequestConfigurations.GET);
 
         return from(fetch(url, configObject as any)).pipe(
-            map(res => this._resInterceptors.execute(new HttpResponse(res))),
+            map(res => this._resInterceptors.execute(new HttpResponse(res as any))),
             checkHttpStatus()
         );
     }
@@ -35,7 +35,7 @@ export class RxJSHttpClient implements IHttp {
         const configObject: RequestInit = RequestMapper.for(request, HttpRequestConfigurations.POST);
 
         return from(fetch(url, configObject as any)).pipe(
-            map((response) => this._resInterceptors.execute(new HttpResponse(response))),
+            map(res => this._resInterceptors.execute(new HttpResponse(res as any))),
             checkHttpStatus()
         );
     }
@@ -45,7 +45,7 @@ export class RxJSHttpClient implements IHttp {
         const configObject: RequestInit = RequestMapper.for(request, HttpRequestConfigurations.PUT);
 
         return from(fetch(url, configObject as any)).pipe(
-            map((response) => this._resInterceptors.execute(new HttpResponse(response))),
+            map(res => this._resInterceptors.execute(new HttpResponse(res as any))),
             checkHttpStatus()
         );
     }
@@ -55,7 +55,7 @@ export class RxJSHttpClient implements IHttp {
         const configObject: RequestInit = RequestMapper.for(request, HttpRequestConfigurations.PATCH);
 
         return from(fetch(url, configObject as any)).pipe(
-            map((response) => this._resInterceptors.execute(new HttpResponse(response))),
+            map(res => this._resInterceptors.execute(new HttpResponse(res as any))),
             checkHttpStatus()
         );
     }
@@ -65,7 +65,7 @@ export class RxJSHttpClient implements IHttp {
         const configObject: RequestInit = RequestMapper.for(request, HttpRequestConfigurations.DELETE);
 
         return from(fetch(url, configObject as any)).pipe(
-            map((response) => this._resInterceptors.execute(new HttpResponse(response))),
+            map(res => this._resInterceptors.execute(new HttpResponse(res as any))),
             checkHttpStatus()
         );
     }

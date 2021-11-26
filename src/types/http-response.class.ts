@@ -1,6 +1,5 @@
-import {Observable} from 'rxjs';
-import {fromPromise} from 'rxjs/internal-compatibility';
-import * as _ from "lodash";
+import { cloneDeep } from 'lodash';
+import {from, Observable} from 'rxjs';
 
 export class HttpResponse {
     public headers: Headers;
@@ -11,10 +10,7 @@ export class HttpResponse {
     public type: ResponseType;
     public url: string;
 
-    private readonly _response: Response;
-
-    constructor(response: Response) {
-        this._response = response;
+    constructor(private readonly response: Response) {
         this.headers = response.headers;
         this.ok = response.ok;
         this.redirected = response.redirected;
@@ -24,31 +20,27 @@ export class HttpResponse {
         this.url = response.url;
     }
 
-    public get trailer(): Observable<Headers> {
-        return fromPromise(this._response.trailer);
-    };
-
     public arrayBuffer(): Observable<ArrayBuffer> {
-        return fromPromise(this._response.arrayBuffer());
+        return from(this.response.arrayBuffer());
     }
 
     public blob(): Observable<Blob> {
-        return fromPromise(this._response.blob());
+        return from(this.response.blob());
     }
 
     public formData(): Observable<FormData> {
-        return fromPromise(this._response.formData());
+        return from(this.response.formData());
     }
 
     public json(): Observable<any> {
-        return fromPromise(this._response.json());
+        return from(this.response.json());
     }
 
     public text(): Observable<string> {
-        return fromPromise(this._response.text());
+        return from(this.response.text());
     }
 
     public clone(): HttpResponse {
-        return _.cloneDeep(this);
+        return cloneDeep(this);
     }
 }
